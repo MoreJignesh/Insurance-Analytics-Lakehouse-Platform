@@ -32,15 +32,17 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   insurance_analytics_project:
     # Config indicated by + and applies to all files under models/example/
-    scr_bronze:
+    src_bronze:
       +materialized: view
-      schema : scr_bronze
-    scr_silver:
+      +schema : src_bronze
+    src_silver:
       +materialized: table
-    scr_gold:
+      +schema : src_silver
+    src_gold:
       +materialized: table
+      +schema : src_gold
 
 seeds:
   insurance_analytics_project:
     # Config indicated by + and applies to all files under models/example/
-    +schema : scr_bronze
+    +schema : src_bronze
