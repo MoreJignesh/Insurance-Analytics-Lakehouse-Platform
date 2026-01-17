@@ -1,0 +1,26 @@
+# ---- dbt generated folders ----
+target/
+dbt_packages/
+logs/
+
+# ---- dbt profiles (contains credentials) ----
+profiles.yml
+project_notes
+
+# ---- environment variables ----
+.env
+.env.*
+
+# ---- OS / editor junk ----
+.DS_Store
+.vscode/
+.idea/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- dbt local artifacts ----
+.partial_parse.msgpack
