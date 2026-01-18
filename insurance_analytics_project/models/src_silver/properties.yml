@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: src_silver
+    database: insurance_analytics_project
+    schema: src_silver
+
+    tables:
+      - name: str_insurance_customer
+        description: "silver data ingested from bronze raw"

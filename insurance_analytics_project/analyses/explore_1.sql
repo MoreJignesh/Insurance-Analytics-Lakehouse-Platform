@@ -35,3 +35,10 @@ FROM {{ source('src_bronze', 'bronze_staging_table') }} #}
 SELECT *
     -- other cleaned columns
 FROM {{ source('src_bronze', 'bronze_staging_table') }}
+{# WHERE customer_id = '1200001' #}
+
+
+SELECT *
+    -- other cleaned columns
+FROM {{ source('src_silver', 'str_insurance_customer') }}
+{# WHERE customer_id = '1200001' #}
