@@ -32,13 +32,14 @@ FROM  delta.`/Volumes/insurance_analytics_project/src_bronze/bronze_volume/data/
 FROM {{ source('src_bronze', 'bronze_staging_table') }} #}
 
 
-SELECT *
+{# SELECT *
     -- other cleaned columns
-FROM {{ source('src_bronze', 'bronze_staging_table') }}
+FROM {{ source('src_bronze', 'bronze_staging_table') }} #}
 {# WHERE customer_id = '1200001' #}
 
 
 SELECT *
+ FROM {{ source('src_bronze', 'bronze_staging_table') }}
     -- other cleaned columns
-FROM {{ source('src_silver', 'str_insurance_customer') }}
+{# FROM {{ source('src_silver', 'str_insurance_customer') }} #}
 {# WHERE customer_id = '1200001' #}
