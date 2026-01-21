@@ -80,6 +80,7 @@ Why this matters:
 * Mirrors how data lands in real platforms
 
 📸 *(Screenshot idea: raw table preview in Databricks)*
+<img width="1836" height="686" alt="image" src="https://github.com/user-attachments/assets/07945619-03b1-47af-964a-c1e0ccba9ee4" />
 
 ---
 
@@ -115,7 +116,6 @@ Examples:
 * Claims frequency classification
 * Policy duration buckets
 
-📸 *(Screenshot idea: dbt lineage graph for silver models)*
 
 ---
 
@@ -154,6 +154,7 @@ Features:
 These marts answer **specific business questions** without exposing complexity.
 
 📸 *(Screenshot idea: final mart output or dbt docs view)*
+<img width="1754" height="658" alt="image" src="https://github.com/user-attachments/assets/a95d2ba2-432d-4e18-93f6-019ac9b826ad" />
 
 ---
 
@@ -189,7 +190,6 @@ This makes the project:
 * Transparent for stakeholders
 * Maintainable over time
 
-📸 *(Screenshot idea: dbt docs lineage graph)*
 
 ---
 
