@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: src_gold
+    database: insurance_analytics_project
+    schema: src_gold
+
+    tables:
+      - name: str_insurance_customer
+        description: "gold data ingested from intermediate src_silver"

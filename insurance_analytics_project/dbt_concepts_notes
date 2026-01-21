@@ -1,0 +1,200 @@
+The 5 dbt Materializations (ONE by ONE)
+
+
+View → Table → Incremental → Ephemeral → Snapshot
+
+1️⃣ VIEW — “Calculate every time”
+Chai Stall Example ☕
+
+You DO NOT write totals in notebook.
+Every time someone asks:
+
+“How much profit today?”
+
+You recalculate from scratch:
+
+Count cups
+
+Multiply price
+
+Subtract cost
+
+In dbt
+
+A VIEW does NOT store data
+
+It runs the SQL every time you query
+
+Memory Trick 🧠
+
+VIEW = Lazy student
+Never writes notes, recalculates in exam
+
+When to use
+
+✔ Small data
+✔ Light transformations
+✔ Early layers (Bronze / Silver)
+
+2️⃣ TABLE — “Calculate once, save it”
+Chai Stall Example ☕
+
+At end of day:
+
+You calculate profit
+
+Write it in notebook
+
+Tomorrow, you just read it
+
+In dbt
+
+A TABLE stores results physically
+
+Faster to read
+
+Takes storage
+
+Memory Trick 🧠
+
+TABLE = Toppers notebook
+Writes once, revises many times
+
+When to use
+
+✔ Large data
+✔ Final reporting
+✔ Gold layer / BI layer
+
+3️⃣ INCREMENTAL — “Only add new stuff” ⭐ VERY IMPORTANT
+Chai Stall Example ☕
+
+You already wrote profit till yesterday.
+
+Today:
+
+You ONLY add today’s sales
+
+You DO NOT recalculate old days
+
+In dbt
+
+Processes only new rows
+
+Uses where created_date > max_date
+
+Memory Trick 🧠
+
+INCREMENTAL = Smart student
+Doesn’t rewrite whole notebook
+Adds only today’s homework
+
+When to use
+
+✔ Huge tables (millions of rows)
+✔ Daily data loads
+✔ Fact tables
+
+4️⃣ EPHEMERAL — “Temporary calculation (no storage)”
+Chai Stall Example ☕
+
+You calculate:
+
+“Milk cost per cup”
+
+But:
+
+You don’t write it
+
+You just use it while calculating profit
+
+Then forget it
+
+In dbt
+
+No table
+
+No view
+
+SQL is injected into another model
+
+Memory Trick 🧠
+
+EPHEMERAL = Mental math
+Calculate → use → forget
+
+When to use
+
+✔ Small logic
+✔ Reusable calculations
+✔ Avoid clutter
+
+5️⃣ SNAPSHOT — “History of changes” 📸
+Chai Stall Example ☕
+
+Customer Ramesh:
+
+Yesterday: buys 2 cups
+
+Today: buys 5 cups
+
+You want:
+
+“What was his buying habit BEFORE?”
+
+So you take photos of his record over time
+
+In dbt
+
+Tracks changes in rows
+
+Stores old + new values
+
+Used for Slowly Changing Dimensions (SCD)
+
+Memory Trick 🧠
+
+SNAPSHOT = Photo album
+Old memories never lost 📷
+
+When to use
+
+✔ Customer data
+✔ Address changes
+✔ Status changes
+
+ONE SUPER TABLE (Never Forget This)
+dbt Type	Real Life	Stores Data?	Recalculates?
+View	Recount sales	❌ No	✅ Yes
+Table	Written notebook	✅ Yes	❌ No
+Incremental	Add today only	✅ Yes	⚠ Partial
+Ephemeral	Mental math	❌ No	✅ Yes
+Snapshot	Photo album	✅ Yes	❌ No
+GOLDEN RULE (VERY IMPORTANT)
+
+Bronze / Silver → View + Ephemeral
+Gold → Table / Incremental
+History → Snapshot
+
+ONE LAST SUPER MEMORY TRICK
+
+View = Recalculate
+Table = Save once
+Incremental = Add new
+Ephemeral = Temporary
+Snapshot = History
+
+
+
+Singular data test
+any product with negative values...
+
+Generic data test
+- unique
+- not_null
+- accepted_values
+- relationships
+
+
+
+Seeds 

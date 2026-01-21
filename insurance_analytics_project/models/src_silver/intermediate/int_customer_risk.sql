@@ -3,7 +3,7 @@
 
 
 SELECT
-    customer_id,
+    id,
     age,
     gender,
     annual_income,
@@ -18,5 +18,5 @@ SELECT
         when credit_score between 500 and 700 then 'Average'
         else 'Good' end as credit_segment
     
-FROM {{ source('src_silver', 'stg_ins_customer') }}
+FROM   {{ ref('stg_ins_customer') }} 
 

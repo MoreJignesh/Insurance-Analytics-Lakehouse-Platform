@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: int_customer_risk
+    description: "Derived customer risk segmentation"
+
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+      - name: health_risk_segment
+        tests:
+          - accepted_values:
+              values: ['High Risk', 'Medium Risk', 'Low Risk']
+
+      - name: credit_segment
+        tests:
+          - accepted_values:
+              values: ['Poor', 'Average', 'Good']
+
+  - name: int_claim_metrics
+    description: "Claims frequency classification per policy"
+
+    columns:
+      - name: policy_id
+        tests:
+          - not_null
+          - unique
+
+      - name: claims_frequency
+        tests:
+          - accepted_values:
+              values: ['No Claims', 'Low Claims', 'Frequent Claims']
+
+  - name: int_policy_features
+    description: "Policy categorization features"
+
+    columns:
+      - name: policy_id
+        tests:
+          - not_null
+          - unique
+
+      - name: policy_term_category
+        tests:
+          - accepted_values:
+              values: ['Short Term', 'Mid Term', 'Long Term']

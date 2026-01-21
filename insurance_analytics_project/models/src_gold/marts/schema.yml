@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: mart_risk_segmentation
+    description: "Aggregated customer risk segmentation"
+
+    columns:
+      - name: health_risk_segment
+        tests:
+          - not_null
+
+      - name: customer_count
+        tests:
+          - accepted_range:
+              min_value: 0

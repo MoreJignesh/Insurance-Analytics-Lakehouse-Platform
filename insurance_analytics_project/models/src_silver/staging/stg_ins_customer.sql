@@ -4,7 +4,7 @@
 WITH base AS (
 
     SELECT
-        id AS customer_id,
+        id,
         age,
         gender,
         marital_status,
@@ -25,4 +25,5 @@ WITH base AS (
 
 SELECT *
 FROM base
+
 

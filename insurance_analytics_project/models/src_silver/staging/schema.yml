@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: stg_ins_customers
+    description: "Cleaned and standardized customer level attributes"
+
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+      - name: age
+        tests:
+          - not_null
+          - accepted_range:
+              min_value: 0
+              max_value: 120
+
+      - name: gender
+        tests:
+          - accepted_values:
+              values: ['Male', 'Female']
+              severity: warn
+
+      - name: marital_status
+        tests:
+          - accepted_values:
+              values: ['Married', 'Divorced', 'Single', 'Unknown']
+              severity: warn
+
+      - name: annual_income
+        tests:
+          - accepted_range:
+              min_value: 0
+
+      - name: credit_score
+        tests:
+          - accepted_range:
+              min_value: 300
+              max_value: 900
+              severity: warn
+
+  - name: stg_ins_claims
+    description: "Claims related attributes per policy"
+
+    columns:
+      - name: id
+        tests:
+          - not_null
+
+      - name: previous_claims
+        tests:
+          - accepted_range:
+              min_value: 0
+              severity: warn
+  
+  - name: stg_ins_policies
+    description: "Policy level cleaned attributes at initial stage"
+
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+      - name: policy_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Basic', 'Premium', 'Comprehensive']
+
+      - name: insurance_duration
+        tests:
+          - accepted_range:
+              min_value: 1
+              max_value: 50
+              severity: warn

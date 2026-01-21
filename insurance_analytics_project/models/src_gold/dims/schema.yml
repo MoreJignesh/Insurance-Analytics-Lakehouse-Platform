@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer dimension without surrogate keys"
+
+    columns:
+      - name: customer_sk
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: health_risk_segment
+        tests:
+          - not_null
+
+  - name: dim_policy
+    description: "Policy dimension table"
+
+    columns:
+      - name: policy_sk
+        tests:
+          - not_null
+          - unique
+
+      - name: policy_type
+        tests:
+          - not_null

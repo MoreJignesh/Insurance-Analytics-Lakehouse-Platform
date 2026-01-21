@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fct_claims
+    description: "Fact table capturing claims metrics with surrogate key"
+
+    columns:
+      - name: policy_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_policy')
+              field: policy_sk
+
+      - name: customer_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_sk
+
+      - name: previous_claims
+        tests:
+          - accepted_range:
+              min_value: 0
+
+  - name: fct_premiums
+    description: "Premium-related financial metrics"
+
+    columns:
+      - name: policy_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_policy')
+              field: policy_id
+
+      - name: annual_premium
+        tests:
+          - accepted_range:
+              min_value: 0
