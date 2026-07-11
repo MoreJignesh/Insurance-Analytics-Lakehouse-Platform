@@ -1,5 +1,70 @@
+# dbt generated files
+target/
+logs/
+dbt_packages/
+dbt_internal_packages/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+# ==========================
+# dbt generated files
+# ==========================
 
 target/
-dbt_packages/
 logs/
+dbt_packages/
 dbt_internal_packages/
+
+
+# ==========================
+# Python
+# ==========================
+
+__pycache__/
+*.pyc
+*.pyo
+
+
+# ==========================
+# Environment files
+# ==========================
+
+.env
+.env.*
+
+
+# ==========================
+# Databricks
+# ==========================
+
+.databricks/
+
+
+# ==========================
+# IDE files
+# ==========================
+
+.vscode/
+.idea/
+
+
+# ==========================
+# OS generated files
+# ==========================
+
+.DS_Store
+Thumbs.db

@@ -6,6 +6,9 @@ logs/
 # ---- dbt profiles (contains credentials) ----
 profiles.yml
 project_notes
+dbt_concept_notes
+Things_to_be_covered
+
 
 # ---- environment variables ----
 .env
