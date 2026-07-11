@@ -1,243 +1,539 @@
-# 🛡️ Insurance Analytics Platform (DBT + Databricks)
+# 🏥 Insurance Analytics Lakehouse Platform
 
-> *A hands-on, end-to-end analytics engineering project built with real-world messiness, clear modeling intent, and production style data practices using Databricks and dbt-core, enabling scalable Bronze–Silver–Gold data processing, schema enforcement, testing, metadata driven pipeline with Autoloader, and analytics-ready data models for data driven decision..*
+## Enterprise Analytics Engineering Solution Using Databricks, Delta Lake, PySpark & dbt
 
----
-
-## 👋 Why I Built This Project
-
-I wanted to create **something realistic**, not just another clean Kaggle-style project.
-
-This project simulates how data actually arrives in organizations:
-
-* Incomplete
-* Inconsistent
-* Partially missing
-* Yet **valuable** if modeled correctly
-
-Coming from an analytics background and working closely with business stakeholders, I wanted a project that:
-
-* Reflects **real insurance data challenges**
-* Uses **modern analytics tooling** (Databricks + dbt)
-* Demonstrates **how raw data becomes business insight**
-
-This repo documents that journey — step by step.
+![Databricks](https://img.shields.io/badge/Databricks-EF3E42?style=flat\&logo=databricks\&logoColor=white)
+![Apache Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=flat\&logo=apachespark\&logoColor=white)
+![Delta Lake](https://img.shields.io/badge/Delta%20Lake-00ADD8?style=flat)
+![dbt](https://img.shields.io/badge/dbt-FF694B?style=flat\&logo=dbt\&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat\&logo=python\&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat)
 
 ---
 
-## 🧠 Business Context
+# 📌 Project Overview
 
-The dataset represents **insurance customer and policy information**, including:
+The **Insurance Analytics Lakehouse Platform** demonstrates the design and implementation of a modern cloud-based data engineering and analytics engineering solution using **Databricks Lakehouse Architecture and dbt Core**.
 
-* Demographics (age, gender, income, marital status)
-* Policy attributes (policy type, duration, start date)
-* Risk indicators (health score, smoking status, credit score)
-* Claims behavior (previous claims)
+The platform transforms raw insurance datasets into trusted, analytics-ready data products using a structured **Bronze → Silver → Gold Medallion Architecture**.
 
-### Key Business Questions
+This project focuses on enterprise data engineering practices including:
 
-* Who are our **high-risk vs low-risk customers**?
-* How does **policy type** relate to claims behavior?
-* Which customer segments are **more profitable or risky**?
-* How can this data support **underwriting, pricing, and risk teams**?
+* Scalable ETL / ELT pipeline development
+* Databricks Lakehouse architecture
+* Delta Lake implementation
+* PySpark transformations
+* dbt analytics engineering workflows
+* Dimensional modeling
+* Data quality validation
+* Data documentation and lineage
+* Business-ready analytical marts
 
 ---
 
-## 🏗️ Architecture Overview
+# 🎯 Business Problem
 
-This project follows a **modern analytics stack**:
+Insurance organizations generate large volumes of customer, policy, claims, and transaction data from multiple operational systems.
 
-* **Databricks** → scalable data processing & storage
-* **dbt** → transformations, testing, documentation
-* **Medallion Architecture** → Bronze / Silver / Gold layers
+Common challenges include:
+
+* Data distributed across multiple sources
+* Inconsistent data quality
+* Limited transparency into data lineage
+* Slow analytical reporting processes
+* Difficulty creating trusted datasets for business teams
+
+This project demonstrates how a modern Lakehouse architecture can solve these challenges by creating governed, reliable, and analytics-ready data assets.
+
+---
+
+# 🏗 Solution Architecture
+
+The platform follows a modern Lakehouse architecture:
 
 ```
-Raw Files (CSV)
-   ↓
-Databricks (Bronze Tables)
-   ↓
-dbt (Silver Models – Cleaning & Standardization)
-   ↓
-dbt (Gold Models – Facts, Dimensions & Marts)
+                 Source Systems
+
+        Customer Data
+        Policy Data
+        Claims Data
+        Transaction Data
+
+                 |
+                 ↓
+
+          Data Ingestion Layer
+
+          Databricks / ADF
+
+                 |
+                 ↓
+
+=================================
+
+             Bronze Layer
+
+     Raw Delta Tables
+     Source Preservation
+     Schema Enforcement
+
+=================================
+
+                 |
+                 ↓
+
+             Silver Layer
+
+     Data Cleaning
+     Standardization
+     Validation
+     Business Transformations
+
+=================================
+
+                 |
+                 ↓
+
+             Gold Layer
+
+     Dimensions
+     Facts
+     Business Data Marts
+
+=================================
+
+                 |
+                 ↓
+
+        BI & Analytics Consumption
 ```
 
 ---
 
-## 🥉 Bronze Layer – Raw Ingestion
+# 🛠 Technology Stack
 
-**Goal:** Preserve data exactly as received.
-
-What happens here:
-
-* Raw insurance data is loaded into Databricks tables
-* No business logic applied
-* Only minimal schema enforcement
-
-Why this matters:
-
-* Acts as a **source-of-truth backup**
-* Enables debugging and lineage tracking
-* Mirrors how data lands in real platforms
-
-📸 *(Screenshot idea: raw table preview in Databricks)*
-<img width="1836" height="686" alt="image" src="https://github.com/user-attachments/assets/07945619-03b1-47af-964a-c1e0ccba9ee4" />
+| Technology   | Purpose                                       |
+| ------------ | --------------------------------------------- |
+| Databricks   | Cloud data processing platform                |
+| Apache Spark | Distributed data processing engine            |
+| PySpark      | ETL transformation development                |
+| Delta Lake   | Reliable storage layer with ACID transactions |
+| dbt Core     | SQL transformation, testing, documentation    |
+| Python       | Automation and validation workflows           |
+| SQL          | Data modeling and analytical transformations  |
+| Git          | Version control                               |
 
 ---
 
-## 🥈 Silver Layer – Cleaning & Standardization
+# 🥉 Bronze Layer – Raw Ingestion
 
-This is where the **heavy lifting** happens.
+## Goal
 
-### 1️⃣ Staging Models
+Preserve source data exactly as received while creating the foundation for downstream processing.
 
-Purpose:
+## Implementation
 
-* Rename columns
-* Cast data types
-* Handle missing values
-* Standardize categories
+Raw insurance datasets are loaded into Databricks Delta tables.
+
+Activities:
+
+* Raw data ingestion
+* Minimal schema enforcement
+* Source preservation
+* Initial validation checks
+
+## Why Bronze Layer Matters
+
+The Bronze layer provides:
+
+* Source-of-truth storage
+* Historical preservation
+* Debugging capability
+* Data lineage foundation
+* Replay capability for downstream processing
+
+## Screenshot — Bronze Raw Table Preview
+
+<img width="1836" height="686" alt="Bronze Layer Databricks Table" src="https://github.com/user-attachments/assets/07945619-03b1-47af-964a-c1e0ccba9ee4" />
+
+---
+
+# 🥈 Silver Layer – Cleaning & Transformation
+
+## Goal
+
+Transform raw data into clean, standardized, and business-ready datasets.
+
+The Silver layer performs:
+
+## Data Cleaning
+
+* Data type standardization
+* Missing value handling
+* Duplicate detection
+* Category normalization
 
 Examples:
 
-* Empty marital status → `Unknown`
-* Invalid numeric values → `NULL`
-* Consistent naming (`policy_type`, `customer_id`)
+```
+Missing marital_status
+        ↓
+Unknown
+```
 
-### 2️⃣ Intermediate Models
-
-Purpose:
-
-* Apply **business logic**
-* Derive reusable features
-
-Examples:
-
-* Customer risk segmentation (Low / Medium / High)
-* Claims frequency classification
-* Policy duration buckets
-
+```
+Invalid numeric values
+        ↓
+NULL handling
+```
 
 ---
 
-## 🥇 Gold Layer – Analytics-Ready Data
+## Business Transformations
 
-This layer is built for **decision-making**.
+Silver models create reusable business logic:
 
-### ⭐ Dimensions
+Examples:
 
-* `dim_customer`
-* `dim_policy`
+* Customer risk segmentation
+* Claim frequency classification
+* Policy duration analysis
+* Business rule validations
 
-Features:
+The Silver layer provides trusted datasets for analytical modeling.
 
-* Surrogate keys
-* Clean, descriptive attributes
-* Ready for BI tools
+---
 
-### 📊 Facts
+# 🥇 Gold Layer – Analytics Ready Data Products
 
-* `fct_claims`
-* `fct_premiums`
+The Gold layer is designed for business consumption and reporting.
 
-Features:
+It follows dimensional modeling principles.
 
-* Grain clearly defined
-* Foreign-key relationships enforced
-* Optimized for aggregations
+---
 
-### 📈 Business Marts
+# ⭐ Dimension Models
+
+## dim_customer
+
+Customer master information including:
+
+* Customer demographics
+* Risk indicators
+* Customer attributes
+* Segmentation details
+
+---
+
+## dim_policy
+
+Policy reference information including:
+
+* Policy type
+* Coverage details
+* Policy lifecycle information
+* Effective dates
+
+---
+
+# 📊 Fact Models
+
+## fct_claims
+
+Insurance claims analytical dataset.
+
+Includes:
+
+* Claim amount
+* Claim status
+* Claim dates
+* Customer relationships
+* Policy relationships
+
+---
+
+## fct_premiums
+
+Premium transaction dataset.
+
+Includes:
+
+* Premium amounts
+* Policy relationships
+* Financial metrics
+
+---
+
+# 📈 Business Data Marts
+
+Business-focused analytical models:
 
 * Risk Segmentation Mart
 * Profitability Mart
 * Loss Ratio Mart
 
-These marts answer **specific business questions** without exposing complexity.
-
-📸 *(Screenshot idea: final mart output or dbt docs view)*
-<img width="1754" height="658" alt="image" src="https://github.com/user-attachments/assets/a95d2ba2-432d-4e18-93f6-019ac9b826ad" />
+These marts provide simplified datasets for analytics teams without exposing complex transformation logic.
 
 ---
 
-## ✅ Data Quality & Testing
+## Screenshot — Gold Layer / Analytics Output
 
-Data quality is treated as a **first-class citizen**.
-
-Implemented using dbt tests:
-
-* `not_null` & `unique` constraints
-* Accepted values for categories
-* Range checks for numeric fields
-* Relationship tests between facts & dimensions
-
-Design philosophy:
-
-* **Fail fast** for broken pipelines
-* **Warn (not fail)** for real-world data imperfections
-
-This mirrors how mature data teams operate.
+<img width="1754" height="658" alt="Gold Layer Analytics Output" src="https://github.com/user-attachments/assets/a95d2ba2-432d-4e18-93f6-019ac9b826ad" />
 
 ---
 
-## 📚 Documentation & Lineage
+# 🔧 dbt Analytics Engineering Workflow
 
-* Every model is documented
-* Column-level descriptions included
-* Full lineage visible using `dbt docs`
+The project follows modular dbt development practices.
 
-This makes the project:
+Transformation flow:
 
-* Easy to understand for new team members
-* Transparent for stakeholders
-* Maintainable over time
+```
+Source Tables
 
+        ↓
 
----
+Bronze Models
 
-## 🧩 Tools & Tech Stack
+        ↓
 
-* **Databricks** (Delta tables)
-* **dbt Core**
-* **SQL** (analytics engineering style)
-* **Git & VS Code**
+Silver Models
 
-Designed to be:
+    ├── Staging Models
+    │
+    └── Intermediate Models
 
-* Scalable
-* Modular
-* Production-aligned
+        ↓
 
----
+Gold Models
 
-## 🚀 What This Project Demonstrates
-
-* Real-world data modeling
-* Medallion architecture implementation
-* Analytics engineering best practices
-* Thoughtful trade-offs between data quality & usability
-* How raw data becomes trusted insight
+    ├── Dimensions
+    ├── Facts
+    └── Business Marts
+```
 
 ---
 
-## 🔮 Future Enhancements
+# ⚡ Delta Lake Implementation
 
-* Incremental models
-* Snapshotting (SCD Type 2)
-* dbt-expectations for advanced testing
-* BI dashboard integration
-* ML-ready feature store
+Delta Lake provides reliability and scalability through:
+
+## ACID Transactions
+
+Ensures consistent data operations.
+
+## MERGE Operations
+
+Supports incremental processing patterns.
+
+## Schema Evolution
+
+Allows controlled schema changes.
+
+## Time Travel
+
+Provides historical data version access.
+
+## OPTIMIZE & VACUUM
+
+Improves storage management and performance.
 
 ---
 
-## 🙌 Final Note
+# ✅ Data Quality Framework
 
-This project was built **intentionally**, not perfectly.
+Data quality is integrated into the transformation workflow.
 
-It reflects how data teams:
+Implemented validations:
 
-* Work with imperfect data
-* Make design decisions
-* Balance effort vs impact
+* Null checks
+* Unique key validation
+* Accepted value checks
+* Relationship testing
+* Record reconciliation
+* Data consistency checks
 
-If this resonates with you — or sparks a discussion — I’d love to connect.
+Example dbt tests:
 
-Thanks for reading 🙏
+```yaml
+tests:
+  - not_null
+  - unique
+  - relationships
+  - accepted_values
+```
+
+Quality objectives:
+
+✔ Improve trust in analytical datasets
+✔ Detect pipeline issues early
+✔ Maintain reliable reporting outputs
+
+---
+
+# 📚 Documentation & Data Lineage
+
+The project includes documentation and lineage practices using dbt.
+
+Capabilities:
+
+* Model documentation
+* Column-level descriptions
+* Dependency tracking
+* Transformation lineage
+
+Benefits:
+
+* Easier onboarding
+* Better maintainability
+* Improved governance
+
+---
+
+# 📂 Repository Structure
+
+```
+Insurance-Analytics-Lakehouse-Platform
+
+│
+├── README.md
+├── dbt_project.yml
+├── packages.yml
+│
+├── models
+│   │
+│   ├── src_bronze
+│   │   └── Raw ingestion models
+│   │
+│   ├── src_silver
+│   │   │
+│   │   ├── staging
+│   │   │   └── Cleaning and standardization
+│   │   │
+│   │   └── intermediate
+│   │       └── Business transformations
+│   │
+│   └── src_gold
+│       │
+│       ├── dims
+│       │   └── Dimension models
+│       │
+│       ├── facts
+│       │   └── Fact models
+│       │
+│       └── marts
+│           └── Business analytical models
+│
+├── tests
+│
+├── macros
+│
+├── snapshots
+│
+└── seeds
+```
+
+---
+
+# 🚀 Running the Project
+
+Install dbt dependencies:
+
+```bash
+dbt deps
+```
+
+Validate project:
+
+```bash
+dbt compile
+```
+
+Execute transformations:
+
+```bash
+dbt run
+```
+
+Run data quality tests:
+
+```bash
+dbt test
+```
+
+Generate documentation:
+
+```bash
+dbt docs generate
+dbt docs serve
+```
+
+---
+
+# 🧩 Engineering Challenges & Solutions
+
+## Challenge 1: Incremental Data Processing
+
+**Problem**
+
+Processing changing insurance datasets efficiently.
+
+**Solution**
+
+Implemented Delta Lake MERGE patterns to support incremental updates.
+
+---
+
+## Challenge 2: Data Reliability
+
+**Problem**
+
+Ensuring trusted analytical datasets.
+
+**Solution**
+
+Implemented automated validation and reconciliation checks.
+
+---
+
+## Challenge 3: Data Governance
+
+**Problem**
+
+Maintaining transparency and traceability.
+
+**Solution**
+
+Applied documentation, lineage tracking, and structured modeling practices.
+
+---
+
+# 🚀 Future Enhancements
+
+Planned improvements:
+
+* Add SCD Type 2 historical tracking
+* Implement incremental dbt models
+* Add CI/CD deployment workflows
+* Add automated pipeline monitoring
+* Integrate Power BI semantic models
+* Build ML-ready feature engineering pipelines
+
+---
+
+# ⚠️ Disclaimer
+
+This is a personal portfolio project created to demonstrate modern data engineering and analytics engineering concepts.
+
+No proprietary company data or confidential information is used.
+
+---
+
+# 👋 Connect
+
+Interested in discussing:
+
+* Data Engineering
+* Databricks Lakehouse Architecture
+* Analytics Engineering
+* Cloud Data Platforms
